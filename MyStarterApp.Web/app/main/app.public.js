@@ -9,5 +9,6 @@
             "ngRoute",
             "ngMaterial",
             "ngMessages",
-            "ngCookies"]);
+            "ngCookies"
+        ]);
 })();

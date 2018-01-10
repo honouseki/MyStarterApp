@@ -216,6 +216,9 @@
     <Content Include="app\main\app.public.js" />
     <Content Include="app\main\app.routes.js" />
     <Content Include="app\main\index.html" />
+    <Content Include="app\main\modules\home\home.controller.js" />
+    <Content Include="app\main\modules\home\home.html" />
+    <Content Include="app\main\modules\home\home.service.js" />
     <Content Include="Content\angular-material.css" />
     <Content Include="Content\angular-material.layout-attributes.css" />
     <Content Include="Content\angular-material.layout-attributes.min.css" />
@@ -227,6 +230,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\mainApp.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
@@ -1041,6 +1045,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mainApp.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -1086,7 +1091,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\main\common_services\" />
-    <Folder Include="app\main\modules\" />
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\custom_template\" />
   </ItemGroup>

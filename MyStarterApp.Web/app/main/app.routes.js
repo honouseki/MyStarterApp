@@ -1,7 +1,6 @@
 ﻿(function () {
     "use strict";
-    angular
-        .module("mainApp" + ".routes", []);
+    var app = angular.module("mainApp" + ".routes", []);
 
     app.config(_configureStates);
 
@@ -12,7 +11,8 @@
             enabled: true,
             requireBase: false
         });
-        $urlRouterProvider.otherwise("/home");
+        // This sets the default landing page to the home page
+        // $urlRouterProvider.otherwise("/home");
         $stateProvider
             .state({
                 name: "home",
