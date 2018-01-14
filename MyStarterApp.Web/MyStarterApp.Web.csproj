@@ -110,11 +110,13 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -1098,6 +1100,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyStarterApp.Data\MyStarterApp.Data.csproj">
+      <Project>{b61f7adb-4737-4672-b13c-7c810c975b4f}</Project>
+      <Name>MyStarterApp.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyStarterApp.Models\MyStarterApp.Models.csproj">
+      <Project>{e7286e5c-04a9-4732-8310-f1a7b8837180}</Project>
+      <Name>MyStarterApp.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyStarterApp.Services\MyStarterApp.Services.csproj">
+      <Project>{d0638dd4-eebb-4056-82a1-741a6e298e1c}</Project>
+      <Name>MyStarterApp.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
