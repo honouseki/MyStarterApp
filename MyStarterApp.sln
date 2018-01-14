@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStarterApp.Web", "MyStart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStarterApp.Data", "MyStarterApp.Data\MyStarterApp.Data.csproj", "{B61F7ADB-4737-4672-B13C-7C810C975B4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStarterApp.Models", "MyStarterApp.Models\MyStarterApp.Models.csproj", "{E7286E5C-04A9-4732-8310-F1A7B8837180}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B61F7ADB-4737-4672-B13C-7C810C975B4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B61F7ADB-4737-4672-B13C-7C810C975B4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B61F7ADB-4737-4672-B13C-7C810C975B4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7286E5C-04A9-4732-8310-F1A7B8837180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7286E5C-04A9-4732-8310-F1A7B8837180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7286E5C-04A9-4732-8310-F1A7B8837180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7286E5C-04A9-4732-8310-F1A7B8837180}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
