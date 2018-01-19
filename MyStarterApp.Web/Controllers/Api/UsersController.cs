@@ -65,7 +65,7 @@ namespace MyStarterApp.Web.Controllers.Api
             }
         }
 
-        [Route("login"), HttpPost]
+        [Route("login/{remember}"), HttpPost]
         public HttpResponseMessage Login(LoginUser model, bool remember)
         {
             if (!ModelState.IsValid)

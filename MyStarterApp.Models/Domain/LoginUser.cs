@@ -12,7 +12,7 @@ namespace MyStarterApp.Models.Domain
         public int Id { get; set; }
         [Required, MaxLength(50, ErrorMessage = "Username is too long")]
         public string Username { get; set; }
-        [Required, EmailAddress(ErrorMessage = "Invalid email-address")]
+        [EmailAddress(ErrorMessage = "Invalid email-address")]
         public string Email { get; set; }
         public string Salt { get; set; }
         public string HashPassword { get; set; }

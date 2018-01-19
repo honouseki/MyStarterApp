@@ -19,7 +19,9 @@
 
         // Declared variables
         vm.regItem = {};
-        vm.logItem = {};
+        vm.logItem = {
+            remember: false
+        };
 
         function _onInit() {
             console.log("regLoginController");
@@ -33,11 +35,12 @@
                 .catch(function (err) { console.log(err); });
         }
 
+        // Register
         function _register() {
-            console.log(vm.regItem);
             vm.regLoginService.insert(vm.regItem)
                 .then(success).catch(error);
             function success(res) {
+                console.log("Registering new user...");
                 console.log(res);
             }
             function error(err) {
@@ -45,8 +48,17 @@
             }
         }
 
+        // Login
         function _login() {
-            console.log(vm.logItem);
+            vm.regLoginService.login(vm.logItem)
+                .then(success).catch(error);
+            function success(res) {
+                console.log("Logging in...");
+                console.log(res);
+            }
+            function error(err) {
+                console.log(err);
+            }
         }
     }
 })();

@@ -112,6 +112,7 @@ namespace MyStarterApp.Services.Services
         public bool Login(LoginUser model, bool remember)
         {
             bool isSuccessful = false;
+            string hashPassword;
             model.Username = model.Username.ToLower();
             // Runs 'RetrieveSaltHash' to make sure that the username does exist, 
             //     and if so, retrieve the user's salt and hash password information
@@ -128,7 +129,16 @@ namespace MyStarterApp.Services.Services
                     //     add to salt as many "=" to make it evenly divisible by 4
                     loginModel.Salt += new string('=', 4 - multOf4);
                 }
-                string hashPassword = _cryptographyService.Hash(model.Password, loginModel.Salt, HASH_ITERATION_COUNT);
+
+                // In the case that hashing fails, continue to return isSuccessful (which should be false)
+                try
+                {
+                    hashPassword = _cryptographyService.Hash(model.Password, loginModel.Salt, HASH_ITERATION_COUNT);
+                }
+                catch (Exception)
+                {
+                    return isSuccessful;
+                }
 
                 // REVISIT....
                 // To store into cookie later?

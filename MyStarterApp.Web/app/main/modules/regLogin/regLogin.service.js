@@ -10,7 +10,8 @@
         return {
             adminSelectAll: _adminSelectAll,
             selectByUsername: _selectByUsername,
-            insert: _insert
+            insert: _insert,
+            login: _login
         }
 
         function _adminSelectAll() {
@@ -25,6 +26,11 @@
 
         function _insert(data) {
             return $http.post("/api/users/", data, { withCredentials: true })
+                .then(success).catch(error);
+        }
+
+        function _login(data) {
+            return $http.post("/api/users/login/" + data.remember, data, { withCredentials: true })
                 .then(success).catch(error);
         }
 
