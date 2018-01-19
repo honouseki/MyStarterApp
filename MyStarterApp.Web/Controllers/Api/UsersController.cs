@@ -64,5 +64,40 @@ namespace MyStarterApp.Web.Controllers.Api
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        [Route("login"), HttpPost]
+        public HttpResponseMessage Login(LoginUser model, bool remember)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+            try
+            {
+                ItemResponse<bool> resp = new ItemResponse<bool>();
+                resp.Item = userService.Login(model, remember);
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        //TEMPORARY; REMOVE AND MAKE SERVICE CALL PRIVATE WHEN SUCCESSFUL
+        //[Route("login/{username}"), HttpGet]
+        //public HttpResponseMessage RetrieveSaltHash(string username)
+        //{
+        //    try
+        //    {
+        //        ItemResponse<LoginUser> resp = new ItemResponse<LoginUser>();
+        //        resp.Item = userService.RetrieveSaltHash(username);
+        //        return Request.CreateResponse(HttpStatusCode.OK, resp);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+        //    }
+        //}
     }
 }

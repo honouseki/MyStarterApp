@@ -14,5 +14,7 @@ namespace MyStarterApp.Models.Domain
         public string Email { get; set; }
         public bool Remember { get; set; }
         public int RoleId { get; set; }
+        public bool Confirmed { get; set; }
+        public bool Suspended { get; set; }
     }
 }

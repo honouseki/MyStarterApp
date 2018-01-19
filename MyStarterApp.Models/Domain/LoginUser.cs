@@ -16,9 +16,12 @@ namespace MyStarterApp.Models.Domain
         public string Email { get; set; }
         public string Salt { get; set; }
         public string HashPassword { get; set; }
-        public int MyProperty { get; set; }
         [Required, MinLength(6, ErrorMessage = "Password requires a minimum of 6 characters")]
         //[RegularExpression(@"^[a-zA-Z][0-9]$", ErrorMessage = "Does not contain a letter AND a number")]
         public string Password { get; set; }
+        // To store in cookie
+        public int RoleId { get; set; }
+        public bool Confirmed { get; set; }
+        public bool Suspended { get; set; }
     }
 }
