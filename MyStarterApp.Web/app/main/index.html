@@ -33,21 +33,27 @@
 </head>
 <body>
     <p>This is the index page</p>
+    <br />
+    <hr />
 
     <!--Testing Material (and ultimately, AngularJS)-->
-    <md-button>Material Button Test</md-button>
+    <md-button>Material Button Test</md-button><br />
 
     <!--Links using AngularJS UI Router.
         ui-sref references the "name" in the app.routes.js file, where URL routes are set-->
-    <a ui-sref="home">Home Link</a>
+    <a ui-sref="home">Home Link</a><br />
+    <a ui-sref="regLogin">Register/Login Link</a>
     
     <br />
+    <hr />
 
     <!--UI View using AngularJS UI Router-->
     <div class="container">
         <div ui-view></div>
     </div>
 
+    <hr />
+    <br />
     <p>Maybe some footer</p>
 
 
@@ -65,8 +71,10 @@
     <script src="/app/main/app.routes.js"></script>
     <!--AngularJS Services-->
     <script src="/app/main/modules/home/home.service.js"></script>
+    <script src="/app/main/modules/regLogin/regLogin.service.js"></script>
     <!--AngularJS Controllers-->
     <script src="/app/main/modules/home/home.controller.js"></script>
+    <script src="/app/main/modules/regLogin/regLogin.controller.js"></script>
     <!--AngularJS Components-->
     <!--Angular Material/Other-->
     <script src="../../Scripts/angular-cookies.min.js"></script>
