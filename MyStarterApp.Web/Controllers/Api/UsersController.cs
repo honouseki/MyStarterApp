@@ -83,21 +83,35 @@ namespace MyStarterApp.Web.Controllers.Api
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+        
+        [Route("checkusername/{username}"), HttpGet]
+        public HttpResponseMessage CheckUsername(string username)
+        {
+            try
+            {
+                ItemResponse<int> resp = new ItemResponse<int>();
+                resp.Item = userService.CheckUsername(username);
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
 
-        //TEMPORARY; REMOVE AND MAKE SERVICE CALL PRIVATE WHEN SUCCESSFUL
-        //[Route("login/{username}"), HttpGet]
-        //public HttpResponseMessage RetrieveSaltHash(string username)
-        //{
-        //    try
-        //    {
-        //        ItemResponse<LoginUser> resp = new ItemResponse<LoginUser>();
-        //        resp.Item = userService.RetrieveSaltHash(username);
-        //        return Request.CreateResponse(HttpStatusCode.OK, resp);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
-        //    }
-        //}
+        [Route("checkemail/{email}/"), HttpGet]
+        public HttpResponseMessage CheckEmail(string email)
+        {
+            try
+            {
+                ItemResponse<int> resp = new ItemResponse<int>();
+                resp.Item = userService.CheckEmail(email);
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
     }
 }
