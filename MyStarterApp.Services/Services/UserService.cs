@@ -56,10 +56,11 @@ namespace MyStarterApp.Services.Services
         // Insert new user; Register
         public int Insert(LoginUser model)
         {
-            // Runs 'SelectByUsername' to make sure that the username does not exist
-            // If the username does not exist, the Id returned should be 0, thus running the registration process
-            User loginModel = SelectByUsername(model.Username);
-            if (loginModel.Id == 0)
+            // Runs CheckUsername/CheckEmail to make sure that those fields do not already exist in the database
+            // If the username/email does not exist, the Id returned should be 0, thus running the registration process
+            int check1 = CheckUsername(model.Username);
+            int check2 = CheckEmail(model.Email);
+            if (check1 == 0 && check2 == 0)
             {
                 // Registration Process begins by setting userId (to be returned) to 0, and declaring needed variables
                 int userId = 0;
@@ -102,8 +103,7 @@ namespace MyStarterApp.Services.Services
                 // This is sent in the case the login model DOES exist.
                 // Question: Why is this set to -1? What happens when this is returned?
                 // Assumption: If returning -1, then display a message stating that the username is already taken
-                loginModel.Id = -1;
-                return loginModel.Id;
+                return -1;
             }
         }
 
@@ -190,6 +190,43 @@ namespace MyStarterApp.Services.Services
                 }
             );
             return model;
+        }
+
+        // Checks if username already exists
+        public int CheckUsername(string username)
+        {
+            int check = 0;
+            this.DataProvider.ExecuteCmd(
+                "Users_CheckUsername",
+                inputParamMapper: delegate(SqlParameterCollection paramCol)
+                {
+                    paramCol.AddWithValue("@username", username);
+                },
+                singleRecordMapper: delegate(IDataReader reader, short set)
+                {
+                    int index = 0;
+                    check = reader.GetSafeInt32(index++);
+                }
+            );
+            return check;
+        }
+        // Checks if email already exists
+        public int CheckEmail(string email)
+        {
+            int check = 0;
+            this.DataProvider.ExecuteCmd(
+                "Users_CheckEmail",
+                inputParamMapper: delegate (SqlParameterCollection paramCol)
+                {
+                    paramCol.AddWithValue("@email", email);
+                },
+                singleRecordMapper: delegate (IDataReader reader, short set)
+                {
+                    int index = 0;
+                    check = reader.GetSafeInt32(index++);
+                }
+            );
+            return check;
         }
 
         // Maps a user object

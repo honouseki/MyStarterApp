@@ -12,7 +12,7 @@
             requireBase: false
         });
         // This sets the default landing page to the home page
-        // $urlRouterProvider.otherwise("/home");
+        $urlRouterProvider.otherwise("/home");
         $stateProvider
             .state({
                 name: "home",

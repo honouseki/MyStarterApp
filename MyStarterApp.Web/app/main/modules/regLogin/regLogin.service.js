@@ -11,7 +11,9 @@
             adminSelectAll: _adminSelectAll,
             selectByUsername: _selectByUsername,
             insert: _insert,
-            login: _login
+            login: _login,
+            checkUsername: _checkUsername,
+            checkEmail: _checkEmail
         }
 
         function _adminSelectAll() {
@@ -31,6 +33,16 @@
 
         function _login(data) {
             return $http.post("/api/users/login/" + data.remember, data, { withCredentials: true })
+                .then(success).catch(error);
+        }
+
+        function _checkUsername(username) {
+            return $http.get("/api/users/checkusername/" + username, { withCredentials: true })
+                .then(success).catch(error);
+        }
+
+        function _checkEmail(email) {
+            return $http.get("/api/users/checkemail/" + email + "/", { withCredentials: true })
                 .then(success).catch(error);
         }
 

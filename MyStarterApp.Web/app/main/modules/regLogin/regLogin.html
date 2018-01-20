@@ -2,54 +2,59 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
+                <!--Register form-->
                 <h3>Register</h3>
                 <form class="form" name="regForm" novalidate>
                     <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Enter username"username" ng-model="regLoginCtrl.regItem.username" name="username" required ng-maxlength="50" />
+                        <label for="rUsername">Username</label>
+                        <input type="text" class="form-control" placeholder="Enter username"username" ng-model="regLoginCtrl.regItem.username" ng-model-options="{debounce: 500}" ng-change="regLoginCtrl.checkUser(regLoginCtrl.regItem.username)" name="username" id="rUsername" required ng-maxlength="50"/>
                         <p class="help-block" ng-show="regForm.username.$error.required && regForm.username.$dirty">A username is required</p>
                         <!--If username already exists-->
-                        <p class="help-block hidden">Username already exists</p>
+                        <p class="help-block" ng-show="regLoginCtrl.userExists">Username already exists</p>
                     </div>
                     <div class="form-group">
-                        <label>Email address</label>
-                        <input type="email" class="form-control" placeholder="Enter email" ng-model="regLoginCtrl.regItem.email" name="email" required>
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" placeholder="Enter email" ng-model="regLoginCtrl.regItem.email" ng-model-options="{debounce: 500}" ng-change="regLoginCtrl.checkEmail(regForm.email.$valid)" name="email" id="email" required>
                         <p class="help-block" ng-show="regForm.email.$error.required && regForm.email.$dirty">An email is required</p>
                         <p class="help-block" ng-show="regForm.email.$error.email && regForm.email.$dirty">Make sure your email is valid</p>
                         <!--If email already exists-->
-                        <p class="help-block hidden">Email already exists</p>
+                        <p class="help-block" ng-show="regLoginCtrl.emailExists">Email already exists</p>
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" placeholder="Password" ng-model="regLoginCtrl.regItem.password" name="password" required ng-minlength="6" ng-pattern="/(?=.*\d)(?=.*[a-zA-Z])/">
+                        <label for="rPassword1">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" ng-model="regLoginCtrl.regItem.password" name="password" id="rPassword1" required ng-minlength="6" ng-pattern="/(?=.*\d)(?=.*[a-zA-Z])/">
                         <p class="help-block" ng-show="regForm.password.$error.required && regForm.password.$dirty">A password is required</p>
                         <p class="help-block" ng-show="regForm.password.$error.minlength && regForm.password.$dirty">Your password must have at least 6 characters</p>
                         <p class="help-block" ng-show="regForm.password.$error.pattern && regForm.password.$dirty">Please have your password a number and a letter because standards dictate it to be so. P.S. You disappoint me</p>
                     </div>
                     <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" class="form-control" placeholder="Confirm Password" ng-model="regLoginCtrl.regItem.confirmPass" required ng-minlength="6" ng-pattern="regLoginCtrl.regItem.password">
+                        <label for="rPassword2">Confirm Password</label>
+                        <input type="password" class="form-control" placeholder="Confirm Password" ng-model="regLoginCtrl.regItem.confirmPass" id="rPassword2" required ng-minlength="6" ng-pattern="regLoginCtrl.regItem.password">
                         <p class="help-block" ng-show="regForm.confirmPass.$error.required && regForm.confirmPass.$dirty">Please confirm your password</p>
                         <p class="help-block" ng-show="regForm.confirmPass.$error.pattern && regForm.confirmPass.$dirty">Passwords do not match</p>
                     </div>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" ng-model="regLoginCtrl.logItem.agreed" name="agreement">
-                        <label class="form-check-label">I agree to the <a href="#">Terms of Service</a></label>
+                        <input type="checkbox" class="form-check-input" ng-model="regLoginCtrl.logItem.agreed" name="agreement" id="agreement">
+                        <label class="form-check-label" for="agreement">I agree to the <a href="#">Terms of Service</a></label>
                     </div>
                     <button type="submit" class="btn btn-primary" ng-disabled="regForm.$invalid || regLoginCtrl.logItem.agreed !== true" ng-click="regLoginCtrl.register()">Register</button>
+                    <!--If username or email is already taken-->
+                    <br />
+                    <p class="help-block" ng-show="regLoginCtrl.userExists || regLoginCtrl.emailExists">Username/Email already taken</p>
                 </form>
             </div>
             <div class="col-md-6">
+                <!--Login Form-->
                 <h3>Login</h3>
                 <form class="form" name="loginForm" novalidate>
                     <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Enter username" ng-model="regLoginCtrl.logItem.username" name="username" required ng-maxlength="50"/>
+                        <label for="lUsername">Username</label>
+                        <input type="text" class="form-control" placeholder="Enter username" ng-model="regLoginCtrl.logItem.username" name="username" id="lUsername" required ng-maxlength="50"/>
                         <p class="help-block" ng-show="loginForm.username.$error.required && loginForm.username.$dirty">Enter your username</p>
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" placeholder="Password" ng-model="regLoginCtrl.logItem.password" name="password" required ng-minlength="6" ng-pattern="/(?=.*\d)(?=.*[a-zA-Z])/">
+                        <label for="lPassword">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" ng-model="regLoginCtrl.logItem.password" name="password" id="lPassword" required ng-minlength="6" ng-pattern="/(?=.*\d)(?=.*[a-zA-Z])/">
                         <p class="help-block" ng-show="loginForm.password.$error.required && loginForm.password.$dirty">Enter your password</p>
                         <p class="help-block" ng-show="loginForm.password.$error.minlength && loginForm.password.$dirty">Your password should have at least 6 characters</p>
                         <p class="help-block" ng-show="loginForm.password.$error.pattern && loginForm.password.$dirty">Your password should have at least a letter and a number</p>
@@ -60,7 +65,8 @@
                     </div>
                     <button type="submit" class="btn btn-primary" ng-click="regLoginCtrl.login()" ng-disabled="loginForm.$invalid">Login</button>
                     <!--If login returns false-->
-                    <p class="help-block hidden">Invalid username or password</p>
+                    <br />
+                    <p class="help-block" ng-show="regLoginCtrl.loginFail">Invalid username or password</p>
                 </form>
             </div>
         </div>
