@@ -145,13 +145,12 @@ namespace MyStarterApp.Services.Services
                 UserBase resp = new UserBase()
                 {
                     UserId = loginModel.Id,
-                    Roles = new[] { "User" },
                     Username = loginModel.Username,
                     Email = loginModel.Email,
-                    Remember = remember,
-                    RoleId = loginModel.RoleId,
-                    Confirmed = loginModel.Confirmed,
-                    Suspended = loginModel.Suspended
+                    RoleId = (loginModel.RoleId).ToString(),
+                    Confirmed = (loginModel.Confirmed).ToString(),
+                    Suspended = (loginModel.Suspended).ToString(),
+                    Remember = remember
                 };
                 // To create the cookie? Will do later
                 //Claim emailClaim = new Claim(userData.Email.ToString(), "LPGallery");
