@@ -10,7 +10,8 @@ namespace MyStarterApp.Services.Services
         int CheckEmail(string email);
         int CheckUsername(string username);
         int Insert(LoginUser model);
-        bool Login(LoginUser model, bool remember);
+        int Login(LoginUser model, bool remember);
+        User AdminSelectById(int id);
         User SelectByUsername(string username);
     }
 }

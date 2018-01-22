@@ -10,10 +10,6 @@ namespace MyStarterApp.Models.Interfaces
     {
         int UserId { get; set; }
         string Username { get; set; }
-        string Email { get; set; }
-        string RoleId { get; set; }
-        string Confirmed { get; set; }
-        string Suspended { get; set; }
         bool Remember { get; set; }
     }
 }

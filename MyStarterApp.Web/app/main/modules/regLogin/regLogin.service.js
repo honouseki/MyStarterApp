@@ -12,8 +12,10 @@
             selectByUsername: _selectByUsername,
             insert: _insert,
             login: _login,
+            logout: _logout,
             checkUsername: _checkUsername,
-            checkEmail: _checkEmail
+            checkEmail: _checkEmail,
+            getCurrentUser: _getCurrentUser
         }
 
         function _adminSelectAll() {
@@ -36,6 +38,11 @@
                 .then(success).catch(error);
         }
 
+        function _logout() {
+            return $http.get("/api/users/logout", { withCredentials: true })
+                .then(success).catch(error);
+        }
+
         function _checkUsername(username) {
             return $http.get("/api/users/checkusername/" + username, { withCredentials: true })
                 .then(success).catch(error);
@@ -43,6 +50,11 @@
 
         function _checkEmail(email) {
             return $http.get("/api/users/checkemail/" + email + "/", { withCredentials: true })
+                .then(success).catch(error);
+        }
+
+        function _getCurrentUser() {
+            return $http.get("/api/users/getcurrentuser/", { withCredentials: true })
                 .then(success).catch(error);
         }
 

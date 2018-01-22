@@ -42,14 +42,6 @@ namespace MyStarterApp.Services.Authentication
 
             identity.AddClaim(new Claim(ClaimTypes.Name, user.Username, ClaimValueTypes.String));
 
-            identity.AddClaim(new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.String));
-
-            identity.AddClaim(new Claim(ClaimTypes.Actor, user.RoleId, ClaimValueTypes.String));
-
-            identity.AddClaim(new Claim(ClaimTypes.AuthenticationMethod, user.Confirmed, ClaimValueTypes.String));
-
-            identity.AddClaim(new Claim(ClaimTypes.Sid, user.Suspended, ClaimValueTypes.String));
-
             identity.AddClaims(extraClaims);
 
             AuthenticationProperties props;

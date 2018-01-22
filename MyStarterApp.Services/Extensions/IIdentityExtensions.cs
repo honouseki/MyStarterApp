@@ -94,18 +94,6 @@ namespace MyStarterApp.Services.Security
                     case ClaimTypes.Name:
                         baseUser.Username = claim.Value;
                         break;
-                    case ClaimTypes.Email:
-                        baseUser.Email = claim.Value;
-                        break;
-                    case ClaimTypes.Actor:
-                        baseUser.RoleId = claim.Value;
-                        break;
-                    case ClaimTypes.AuthenticationMethod:
-                        baseUser.Confirmed = claim.Value;
-                        break;
-                    case ClaimTypes.Sid:
-                        baseUser.Suspended = claim.Value;
-                        break;
                     default:
                         break;
                 }

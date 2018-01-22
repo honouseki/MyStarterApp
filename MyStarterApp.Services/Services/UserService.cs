@@ -45,6 +45,23 @@ namespace MyStarterApp.Services.Services
             return result;
         }
 
+        // Selects user by id (admin)
+        public User AdminSelectById(int id)
+        {
+            User model = new User();
+            this.DataProvider.ExecuteCmd(
+                "Users_AdminSelectById",
+                inputParamMapper: delegate(SqlParameterCollection paramCol)
+                {
+                    paramCol.AddWithValue("@id", id);
+                },
+                singleRecordMapper: delegate(IDataReader reader, short set)
+                {
+                    model = UserMapper(reader);
+                }
+            );
+            return model;
+        }
 
         // Selects user by username
         public User SelectByUsername(string username)
@@ -119,9 +136,9 @@ namespace MyStarterApp.Services.Services
         }
 
         // Login user
-        public bool Login(LoginUser model, bool remember)
+        public int Login(LoginUser model, bool remember)
         {
-            bool isSuccessful = false;
+            int isSuccessful = 0;
             string hashPassword;
             model.Username = model.Username.ToLower();
             // Runs 'RetrieveSaltHash' to make sure that the username does exist, 
@@ -150,26 +167,27 @@ namespace MyStarterApp.Services.Services
                     return isSuccessful;
                 }
 
-                // REVISIT....
-                // To store into cookie later?
+                // To store into cookie
                 IUserAuthData resp = new UserBase()
                 {
                     UserId = loginModel.Id,
                     Username = loginModel.Username,
-                    Email = loginModel.Email,
-                    RoleId = (loginModel.RoleId).ToString(),
-                    Confirmed = (loginModel.Confirmed).ToString(),
-                    Suspended = (loginModel.Suspended).ToString(),
                     Remember = remember
                 };
-                // To create the cookie?
-                Claim userClaim = new Claim(loginModel.Username, "MyStarterApp");
-                _authenticationService.Login(resp, new Claim[] { userClaim });
-                // This is where we use remember to store in the cookie^
+
 
                 if (model.Username == loginModel.Username && hashPassword == loginModel.HashPassword)
                 {
-                    isSuccessful = true;
+                    // To create the cookie
+                    if (loginModel.Suspended == false)
+                    {
+                        _authenticationService.Login(resp, new Claim[] { });
+                        isSuccessful = 1;
+                    } else
+                    {
+                        isSuccessful = -1;
+                    }
+                    
                 }
             }
             return isSuccessful;
@@ -192,9 +210,6 @@ namespace MyStarterApp.Services.Services
                     model.Username = reader.GetSafeString(index++);
                     model.Salt = reader.GetSafeString(index++);
                     model.HashPassword = reader.GetSafeString(index++);
-                    // These are to store into cookie
-                    model.RoleId = reader.GetSafeInt32(index++);
-                    model.Confirmed = reader.GetSafeBool(index++);
                     model.Suspended = reader.GetSafeBool(index++);
                 }
             );

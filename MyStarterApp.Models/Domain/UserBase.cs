@@ -11,10 +11,6 @@ namespace MyStarterApp.Models.Domain
     {
         public int UserId { get; set; }
         public string Username { get; set; }
-        public string Email { get; set; }
-        public string RoleId { get; set; }
-        public string Confirmed { get; set; }
-        public string Suspended { get; set; }
         public bool Remember { get; set; }
     }
 }
