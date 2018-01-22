@@ -1,22 +1,33 @@
 ﻿using MyStarterApp.Data;
 using MyStarterApp.Models.Domain;
+using MyStarterApp.Models.Interfaces;
 using MyStarterApp.Models.ViewModels;
+using MyStarterApp.Services.Authentication;
+using MyStarterApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyStarterApp.Services.Services
 {
-    public class UserService : BaseService
+    public class UserService : BaseService, IUserService
     {
         // Creating an instance of the cryptography service; Setting const variables for registration/login
         private Base64StringCryptographyService _cryptographyService = new Base64StringCryptographyService();
+        private IAuthenticationService _authenticationService;
         private const int HASH_ITERATION_COUNT = 1;
         private const int RAND_LENGTH = 15;
+
+        // Using interface
+        public UserService(IAuthenticationService authService)
+        {
+            _authenticationService = authService;
+        }
 
         // Selects all users (admin)
         public List<User> AdminSelectAll()
@@ -107,7 +118,6 @@ namespace MyStarterApp.Services.Services
             }
         }
 
-        
         // Login user
         public bool Login(LoginUser model, bool remember)
         {
@@ -142,7 +152,7 @@ namespace MyStarterApp.Services.Services
 
                 // REVISIT....
                 // To store into cookie later?
-                UserBase resp = new UserBase()
+                IUserAuthData resp = new UserBase()
                 {
                     UserId = loginModel.Id,
                     Username = loginModel.Username,
@@ -152,9 +162,9 @@ namespace MyStarterApp.Services.Services
                     Suspended = (loginModel.Suspended).ToString(),
                     Remember = remember
                 };
-                // To create the cookie? Will do later
-                //Claim emailClaim = new Claim(userData.Email.ToString(), "LPGallery");
-                //_authenticationService.LogIn(response, new Claim[] { emailClaim });
+                // To create the cookie?
+                Claim userClaim = new Claim(loginModel.Username, "MyStarterApp");
+                _authenticationService.Login(resp, new Claim[] { userClaim });
                 // This is where we use remember to store in the cookie^
 
                 if (model.Username == loginModel.Username && hashPassword == loginModel.HashPassword)

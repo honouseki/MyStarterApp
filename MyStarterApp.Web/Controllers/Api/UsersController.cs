@@ -1,6 +1,7 @@
 ﻿using MyStarterApp.Models.Domain;
 using MyStarterApp.Models.Responses;
 using MyStarterApp.Models.ViewModels;
+using MyStarterApp.Services.Interfaces;
 using MyStarterApp.Services.Services;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,14 @@ namespace MyStarterApp.Web.Controllers.Api
     [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
-        private UserService userService = new UserService();
+        private IUserService _userService;
+        private IAuthenticationService _authService;
+
+        public UsersController(IUserService userService, IAuthenticationService authService)
+        {
+            _userService = userService;
+            _authService = authService;
+        }
 
         [Route(), HttpGet]
         public HttpResponseMessage AdminSelectAll()
@@ -22,7 +30,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemsResponse<User> resp = new ItemsResponse<User>();
-                resp.Items = userService.AdminSelectAll();
+                resp.Items = _userService.AdminSelectAll();
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
@@ -37,7 +45,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemResponse<User> resp = new ItemResponse<User>();
-                resp.Item = userService.SelectByUsername(username);
+                resp.Item = _userService.SelectByUsername(username);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
@@ -56,7 +64,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemResponse<int> resp = new ItemResponse<int>();
-                resp.Item = userService.Insert(model);
+                resp.Item = _userService.Insert(model);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
@@ -75,7 +83,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemResponse<bool> resp = new ItemResponse<bool>();
-                resp.Item = userService.Login(model, remember);
+                resp.Item = _userService.Login(model, remember);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
@@ -90,7 +98,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemResponse<int> resp = new ItemResponse<int>();
-                resp.Item = userService.CheckUsername(username);
+                resp.Item = _userService.CheckUsername(username);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
@@ -105,7 +113,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemResponse<int> resp = new ItemResponse<int>();
-                resp.Item = userService.CheckEmail(email);
+                resp.Item = _userService.CheckEmail(email);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)

@@ -16,7 +16,7 @@ namespace MyStarterApp.Services.Interfaces
         /// <param name="user"></param>
         /// <param name="extraClaims"></param>
         /// <returns></returns>
-        void LogIn(IUserAuthData user, params Claim[] extraClaims);
+        void Login(IUserAuthData user, params Claim[] extraClaims);
 
         /// <summary>
         /// Logs out the currently signed in user

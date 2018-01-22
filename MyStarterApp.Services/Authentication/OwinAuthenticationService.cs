@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using MyStarterApp.Models.Interfaces;
+using MyStarterApp.Services.Interfaces;
 using MyStarterApp.Services.Security;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Web;
 
 namespace MyStarterApp.Services.Authentication
 {
-    public class OwinAuthenticationService
+    public class OwinAuthenticationService : IAuthenticationService
     {
         private static string _title = null;
 
@@ -27,7 +28,7 @@ namespace MyStarterApp.Services.Authentication
 
         }
 
-        public void LogIn(IUserAuthData user, params Claim[] extraClaims)
+        public void Login(IUserAuthData user, params Claim[] extraClaims)
         {
             ClaimsIdentity identity = new ClaimsIdentity(DefaultAuthenticationTypes.ApplicationCookie
                                                             , ClaimsIdentity.DefaultNameClaimType
