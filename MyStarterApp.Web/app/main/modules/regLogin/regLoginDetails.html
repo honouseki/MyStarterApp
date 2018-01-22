@@ -1,2 +1,3 @@
 ﻿<p>Login Status: <b>{{$ctrl.loginStatus}}</b></p>
 <p>User: <i>{{$ctrl.username}}</i></p>
+<md-button class="btn-dark" ng-show="$ctrl.loginStatus" ng-click="$ctrl.logout()">Log Out</md-button>

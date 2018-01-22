@@ -1,5 +1,6 @@
 ﻿using MyStarterApp.Models;
 using MyStarterApp.Models.Domain;
+using MyStarterApp.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,12 +38,12 @@ namespace MyStarterApp.Services.Security
             return null;
         }
 
-        //public static IEnumerable<string> GetRoles(this IIdentity identity)
-        //{
-        //    if (identity == null) { throw new ArgumentNullException("identity"); }
-        //    var ci = identity as ClaimsIdentity;
-        //    return ci.FindAll(ci.RoleClaimType).Select(c => c.Value);
-        //}
+        public static IEnumerable<string> GetRoles(this IIdentity identity)
+        {
+            if (identity == null) { throw new ArgumentNullException("identity"); }
+            var ci = identity as ClaimsIdentity;
+            return ci.FindAll(ci.RoleClaimType).Select(c => c.Value);
+        }
 
         // Thin wrapper.
         public static Claim FindFirst(this IIdentity identity, string claimType)
@@ -53,7 +54,7 @@ namespace MyStarterApp.Services.Security
         }
 
 
-        public static UserBase GetCurrentUser(this IIdentity identity)
+        public static IUserAuthData GetCurrentUser(this IIdentity identity)
         {
             MyStarterApp.Models.Domain.UserBase baseUser = null;
 
@@ -76,7 +77,6 @@ namespace MyStarterApp.Services.Security
         private static UserBase ExtractUser(ClaimsIdentity identity)
         {
             MyStarterApp.Models.Domain.UserBase baseUser = new Models.Domain.UserBase();
-            List<string> roles = null;
 
             foreach (var claim in identity.Claims)
             {
@@ -84,38 +84,21 @@ namespace MyStarterApp.Services.Security
                 {
                     case ClaimTypes.NameIdentifier:
                         int id = 0;
+
                         if (Int32.TryParse(claim.Value, out id))
                         {
                             baseUser.UserId = id;
                         }
+
                         break;
                     case ClaimTypes.Name:
                         baseUser.Username = claim.Value;
-                        break;
-                    case ClaimTypes.Email:
-                        baseUser.Email = claim.Value;
-                        break;
-                    case ClaimTypes.Actor:
-                        int roleId = 0;
-                        if (Int32.TryParse(claim.Value, out roleId))
-                        {
-                            baseUser.RoleId = roleId;
-                        }
-                        break;
-                    case ClaimTypes.Role:
-                        if (roles == null)
-                        {
-                            roles = new List<string>();
-                        }
-                        roles.Add(claim.Value);
                         break;
                     default:
                         break;
                 }
 
             }
-
-            baseUser.Roles = roles;
 
             return baseUser;
         }

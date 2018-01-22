@@ -26,6 +26,7 @@
             remember: false
         };
         vm.loginFail = false;
+        vm.suspended = false;
         vm.userExists = false;
         vm.emailExists = false;
 
@@ -53,7 +54,7 @@
                 } else {
                     // Upon successful registration, proceed to log in user
                     vm.logItem = vm.regItem;
-                    //vm.login();
+                    vm.login();
                 }
             }
             function error(err) {
@@ -68,15 +69,24 @@
                 .then(success).catch(error);
             function success(res) {
                 console.log(res);
-                if (res.data.item == true) {
+                if (res.data.item == 1) {
+                    // Logs user in
                     console.log("Logged in!");
                     vm.loginFail = false;
+                    vm.suspended = false;
                     // Broadcasts user login to the rest of the app, then redirects user back to the home page
                     vm.$rootScope.$broadcast("loginSuccess");
                     $location.path("/home");
+                } else if (res.data.item == -1) {
+                    // If returned -1, indicates a suspended account
+                    console.log("SUSPENDED ACCOUNT!");
+                    vm.suspended = true;
+                    vm.loginFailed = false;
                 } else {
+                    // Fails login if username/password is incorrect
                     alert("Login failed!");
                     vm.loginFail = true;
+                    vm.suspended = false;
                 }
             }
             function error(err) {

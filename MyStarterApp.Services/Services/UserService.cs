@@ -1,22 +1,33 @@
 ﻿using MyStarterApp.Data;
 using MyStarterApp.Models.Domain;
+using MyStarterApp.Models.Interfaces;
 using MyStarterApp.Models.ViewModels;
+using MyStarterApp.Services.Authentication;
+using MyStarterApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyStarterApp.Services.Services
 {
-    public class UserService : BaseService
+    public class UserService : BaseService, IUserService
     {
         // Creating an instance of the cryptography service; Setting const variables for registration/login
         private Base64StringCryptographyService _cryptographyService = new Base64StringCryptographyService();
+        private IAuthenticationService _authenticationService;
         private const int HASH_ITERATION_COUNT = 1;
         private const int RAND_LENGTH = 15;
+
+        // Using interface
+        public UserService(IAuthenticationService authService)
+        {
+            _authenticationService = authService;
+        }
 
         // Selects all users (admin)
         public List<User> AdminSelectAll()
@@ -34,6 +45,23 @@ namespace MyStarterApp.Services.Services
             return result;
         }
 
+        // Selects user by id (admin)
+        public User AdminSelectById(int id)
+        {
+            User model = new User();
+            this.DataProvider.ExecuteCmd(
+                "Users_AdminSelectById",
+                inputParamMapper: delegate(SqlParameterCollection paramCol)
+                {
+                    paramCol.AddWithValue("@id", id);
+                },
+                singleRecordMapper: delegate(IDataReader reader, short set)
+                {
+                    model = UserMapper(reader);
+                }
+            );
+            return model;
+        }
 
         // Selects user by username
         public User SelectByUsername(string username)
@@ -107,11 +135,10 @@ namespace MyStarterApp.Services.Services
             }
         }
 
-        
         // Login user
-        public bool Login(LoginUser model, bool remember)
+        public int Login(LoginUser model, bool remember)
         {
-            bool isSuccessful = false;
+            int isSuccessful = 0;
             string hashPassword;
             model.Username = model.Username.ToLower();
             // Runs 'RetrieveSaltHash' to make sure that the username does exist, 
@@ -140,27 +167,27 @@ namespace MyStarterApp.Services.Services
                     return isSuccessful;
                 }
 
-                // REVISIT....
-                // To store into cookie later?
-                UserBase resp = new UserBase()
+                // To store into cookie
+                IUserAuthData resp = new UserBase()
                 {
                     UserId = loginModel.Id,
-                    Roles = new[] { "User" },
                     Username = loginModel.Username,
-                    Email = loginModel.Email,
-                    Remember = remember,
-                    RoleId = loginModel.RoleId,
-                    Confirmed = loginModel.Confirmed,
-                    Suspended = loginModel.Suspended
+                    Remember = remember
                 };
-                // To create the cookie? Will do later
-                //Claim emailClaim = new Claim(userData.Email.ToString(), "LPGallery");
-                //_authenticationService.LogIn(response, new Claim[] { emailClaim });
-                // This is where we use remember to store in the cookie^
+
 
                 if (model.Username == loginModel.Username && hashPassword == loginModel.HashPassword)
                 {
-                    isSuccessful = true;
+                    // To create the cookie
+                    if (loginModel.Suspended == false)
+                    {
+                        _authenticationService.Login(resp, new Claim[] { });
+                        isSuccessful = 1;
+                    } else
+                    {
+                        isSuccessful = -1;
+                    }
+                    
                 }
             }
             return isSuccessful;
@@ -183,9 +210,6 @@ namespace MyStarterApp.Services.Services
                     model.Username = reader.GetSafeString(index++);
                     model.Salt = reader.GetSafeString(index++);
                     model.HashPassword = reader.GetSafeString(index++);
-                    // These are to store into cookie
-                    model.RoleId = reader.GetSafeInt32(index++);
-                    model.Confirmed = reader.GetSafeBool(index++);
                     model.Suspended = reader.GetSafeBool(index++);
                 }
             );
