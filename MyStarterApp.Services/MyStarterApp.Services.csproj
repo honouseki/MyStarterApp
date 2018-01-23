@@ -89,6 +89,7 @@
     <Compile Include="Services\Base64StringCryptographyService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="EmailTestService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
