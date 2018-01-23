@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyStarterApp.Services.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,6 +17,15 @@ namespace MyStarterApp.Web.Controllers.Api
             // Just making sure that the WEB API Controller works
             // This file is only being used for testing purposes; not part of the main application
             return Request.CreateResponse(HttpStatusCode.OK, msg);
+        }
+
+        // Testing email service...
+        [Route("emailtest"), HttpGet]
+        public HttpResponseMessage EmailTest()
+        {
+            EmailTestService emailTest = new EmailTestService();
+            bool resp = emailTest.SendEmail();
+            return Request.CreateResponse(HttpStatusCode.OK, resp);
         }
     }
 }
