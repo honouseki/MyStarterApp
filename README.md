@@ -1,5 +1,6 @@
 # MyStarterApp
 Practice; Starter application with basic functionalities to build upon
+Complete with notes
 
 Using:
 Visual Studios
