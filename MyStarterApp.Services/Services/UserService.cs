@@ -1,4 +1,5 @@
 ﻿using MyStarterApp.Data;
+using MyStarterApp.Models;
 using MyStarterApp.Models.Domain;
 using MyStarterApp.Models.Interfaces;
 using MyStarterApp.Models.ViewModels;
@@ -136,9 +137,9 @@ namespace MyStarterApp.Services.Services
         }
 
         // Login user
-        public int Login(LoginUser model, bool remember)
+        public LoginType Login(LoginUser model, bool remember)
         {
-            int isSuccessful = 0;
+            LoginType isSuccessful = LoginType.Incorrect;
             string hashPassword;
             model.Username = model.Username.ToLower();
             // Runs 'RetrieveSaltHash' to make sure that the username does exist, 
@@ -182,10 +183,10 @@ namespace MyStarterApp.Services.Services
                     if (loginModel.Suspended == false)
                     {
                         _authenticationService.Login(resp, new Claim[] { });
-                        isSuccessful = 1;
+                        isSuccessful = LoginType.Success;
                     } else
                     {
-                        isSuccessful = -1;
+                        isSuccessful = LoginType.Suspended;
                     }
                     
                 }

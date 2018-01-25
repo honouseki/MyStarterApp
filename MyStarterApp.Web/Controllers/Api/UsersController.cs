@@ -1,4 +1,5 @@
-﻿using MyStarterApp.Models.Domain;
+﻿using MyStarterApp.Models;
+using MyStarterApp.Models.Domain;
 using MyStarterApp.Models.Interfaces;
 using MyStarterApp.Models.Responses;
 using MyStarterApp.Models.ViewModels;
@@ -91,7 +92,7 @@ namespace MyStarterApp.Web.Controllers.Api
             }
             try
             {
-                ItemResponse<int> resp = new ItemResponse<int>();
+                ItemResponse<LoginType> resp = new ItemResponse<LoginType>();
                 resp.Item = _userService.Login(model, remember);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
