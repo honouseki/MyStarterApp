@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MyStarterApp.Models.Domain;
 using MyStarterApp.Models.ViewModels;
+using MyStarterApp.Models;
 
 namespace MyStarterApp.Services.Services
 {
@@ -10,7 +11,7 @@ namespace MyStarterApp.Services.Services
         int CheckEmail(string email);
         int CheckUsername(string username);
         int Insert(LoginUser model);
-        int Login(LoginUser model, bool remember);
+        LoginType Login(LoginUser model, bool remember);
         User AdminSelectById(int id);
         User SelectByUsername(string username);
     }
