@@ -23,6 +23,7 @@ namespace MyStarterApp.Services.Services
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            // Use a real gmail account below
             client.Credentials = new NetworkCredential("someCredibleEmail@mailinator.com", "somePass!");
 
             // The message to send
@@ -31,7 +32,7 @@ namespace MyStarterApp.Services.Services
             // This is should be no problem assuming your company will be using just one email address to send emails, which should be the general case
             // Google requires the email address to be owned by YOU, so this is a set issue ^. There are work-arounds 
             // (May use other third-party email services instead, like SendGrid... I am too broke.)
-            // In this case, I'm just using the below From to set the name
+            // In this case, I'm just using the below 'From' to set the name
             message.From = new MailAddress("someCredibleEmail@mailinator.com", "Kazeoseki");
             message.To.Add(new MailAddress("carrot@mailinator.com", "Carrot"));
             message.Subject = "TEST EMAIL! With SMTP...";
