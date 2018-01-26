@@ -257,6 +257,9 @@
   <ItemGroup>
     <Content Include="app\main\app.public.js" />
     <Content Include="app\main\app.routes.js" />
+    <Content Include="app\main\email_test\emailTest.html" />
+    <Content Include="app\main\email_test\emailTest.js" />
+    <Content Include="Email_Templates\email_confirmation.html" />
     <Content Include="app\main\index.html" />
     <Content Include="app\main\modules\home\home.controller.js" />
     <Content Include="app\main\modules\home\home.html" />
