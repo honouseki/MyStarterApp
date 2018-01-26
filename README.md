@@ -11,5 +11,6 @@ MS-SQLSM (T-SQL)
 
 Features (to-be) Included:
 Login/Register/GetCurrentUser
+Basic Email Service (with Gmail's SMTP Server)
 File Upload (to local)
 Web-scraping capabilities
