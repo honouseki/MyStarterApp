@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\ImageFile.cs" />
     <Compile Include="Domain\LoginUser.cs" />
     <Compile Include="Domain\UserBase.cs" />
     <Compile Include="Interfaces\IUserAuthData.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Responses\ItemResponse.cs" />
     <Compile Include="Responses\ItemsResponse.cs" />
     <Compile Include="Responses\SuccessResponse.cs" />
+    <Compile Include="ViewModels\BasicImage.cs" />
     <Compile Include="ViewModels\User.cs" />
   </ItemGroup>
   <ItemGroup>

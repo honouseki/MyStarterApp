@@ -94,6 +94,9 @@ namespace MyStarterApp.Services.Security
                     case ClaimTypes.Name:
                         baseUser.Username = claim.Value;
                         break;
+                    case ClaimTypes.Actor:
+                        baseUser.RoleId = claim.Value;
+                        break;
                     default:
                         break;
                 }

@@ -173,6 +173,7 @@ namespace MyStarterApp.Services.Services
                 {
                     UserId = loginModel.Id,
                     Username = loginModel.Username,
+                    RoleId = loginModel.RoleId.ToString(),
                     Remember = remember
                 };
 
@@ -209,6 +210,7 @@ namespace MyStarterApp.Services.Services
                     int index = 0;
                     model.Id = reader.GetSafeInt32(index++);
                     model.Username = reader.GetSafeString(index++);
+                    model.RoleId = reader.GetSafeInt32(index++);
                     model.Salt = reader.GetSafeString(index++);
                     model.HashPassword = reader.GetSafeString(index++);
                     model.Suspended = reader.GetSafeBool(index++);

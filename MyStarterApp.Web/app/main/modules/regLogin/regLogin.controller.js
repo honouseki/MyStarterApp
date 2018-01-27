@@ -81,7 +81,7 @@
                     // If returned -1, indicates a suspended account
                     console.log("SUSPENDED ACCOUNT!");
                     vm.suspended = true;
-                    vm.loginFailed = false;
+                    vm.loginFail = false;
                 } else {
                     // Fails login if username/password is incorrect
                     alert("Login failed!");
@@ -91,8 +91,9 @@
             }
             function error(err) {
                 console.log(err);
-                alert("Login failed!");
-                vm.loginFail = true;
+                alert("Server failed to log you in!");
+                vm.loginFail = false;
+                vm.suspended = false;
             }
         }
 

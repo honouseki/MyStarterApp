@@ -242,6 +242,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\DefaultTestController.cs" />
+    <Compile Include="Controllers\Api\ImageUploadController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -259,6 +260,9 @@
     <Content Include="app\main\app.routes.js" />
     <Content Include="app\main\email_test\emailTest.html" />
     <Content Include="app\main\email_test\emailTest.js" />
+    <Content Include="app\main\modules\images\images.controller.js" />
+    <Content Include="app\main\modules\images\images.html" />
+    <Content Include="app\main\modules\images\imageUpload.service.js" />
     <Content Include="Email_Templates\email_confirmation.html" />
     <Content Include="app\main\index.html" />
     <Content Include="app\main\modules\home\home.controller.js" />
@@ -1172,6 +1176,7 @@
   <ItemGroup>
     <Folder Include="app\main\common_services\" />
     <Folder Include="App_Data\" />
+    <Folder Include="images\general\" />
     <Folder Include="Scripts\custom_template\" />
   </ItemGroup>
   <ItemGroup>

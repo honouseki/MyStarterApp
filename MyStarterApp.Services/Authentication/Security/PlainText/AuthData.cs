@@ -11,15 +11,15 @@ namespace MyStarterApp.Services.Authentication.Security.PlainText
     public class AuthData
     {
         public IEnumerable<SimpleClaim> OtherClaims { get; private set; }
-        public IEnumerable<string> Roles { get; private set; }
         public string UserId { get; private set; }
         public string UserName { get; private set; }
+        public string RoleId { get; private set; }
 
-        public AuthData(string userId, string userName, IEnumerable<string> roles, IEnumerable<SimpleClaim> otherClaims)
+        public AuthData(string userId, string userName, string roleId, IEnumerable<SimpleClaim> otherClaims)
         {
             UserId = userId;
             UserName = userName;
-            this.Roles = roles;
+            RoleId = roleId;
             OtherClaims = otherClaims;
         }
 
@@ -30,7 +30,7 @@ namespace MyStarterApp.Services.Authentication.Security.PlainText
                   "{0}~{1}~{2}~{3}",
                   UserId,
                   UserName,
-                  string.Join("__", Roles),
+                  RoleId,
                   string.Join("__", OtherClaims.Select(c => c.Type + "," + c.Value))
               );
 

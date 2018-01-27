@@ -11,6 +11,7 @@ namespace MyStarterApp.Models.Domain
     {
         public int UserId { get; set; }
         public string Username { get; set; }
+        public string RoleId { get; set; }
         public bool Remember { get; set; }
     }
 }

@@ -1,0 +1,28 @@
+﻿<div>
+    <h1>Images</h1>
+    <p>Here we can test and display our image uploads</p>
+    <p>This is kept extremely basic, having taken advantage of only one table</p>
+    <hr />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Uploading with Image URL</h4>
+                <form>
+                    <label for="url">Image Link</label>
+                    <input type="url" ng-model="imagesCtrl.imageItem.imageUrl" name="url"/>
+                    <md-button type="submit" class="badge-info" ng-click="imagesCtrl.upload()">Upload</md-button>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <h4>Uploading with File Upload</h4>
+                <form>
+                    <label for="upload">Upload</label>
+                    <input type="file" name="upload" accept="image/*" ng-model="imagesCtrl.imageItem.rawFile" />
+                    <md-button class="badge-info" ng-click="imagesCtrl.upload2()">Upload</md-button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -1,5 +1,6 @@
 using MyStarterApp.Data;
 using MyStarterApp.Data.Providers;
+using MyStarterApp.Services;
 using MyStarterApp.Services.Authentication;
 using MyStarterApp.Services.Cryptography;
 using MyStarterApp.Services.Interfaces;
@@ -44,6 +45,7 @@ namespace MyStarterApp.Web
 
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IAuthenticationService, OwinAuthenticationService>();
+            container.RegisterType<IImageUploadService, ImageUploadService>();
 
             container.RegisterType<ICryptographyService, Base64StringCryptographyService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IDataProvider, SqlDataProvider>(

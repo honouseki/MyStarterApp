@@ -22,12 +22,12 @@ namespace MyStarterApp.Web.Controllers.Api
     {
         // Implementing interfaces (with Unity)
         // Make sure to register interfaces in UnityConfig in order to use
-        private IUserService _userService;
-        private IAuthenticationService _authService;
-        public UsersController(IUserService userService, IAuthenticationService authService)
+        private IUserService userService;
+        private IAuthenticationService authService;
+        public UsersController(IUserService _userService, IAuthenticationService _authService)
         {
-            _userService = userService;
-            _authService = authService;
+            userService = _userService;
+            authService = _authService;
         }
 
         // Select all users, with their information
@@ -37,7 +37,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemsResponse<User> resp = new ItemsResponse<User>();
-                resp.Items = _userService.AdminSelectAll();
+                resp.Items = userService.AdminSelectAll();
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
@@ -53,7 +53,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemResponse<User> resp = new ItemResponse<User>();
-                resp.Item = _userService.SelectByUsername(username);
+                resp.Item = userService.SelectByUsername(username);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
@@ -73,7 +73,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemResponse<int> resp = new ItemResponse<int>();
-                resp.Item = _userService.Insert(model);
+                resp.Item = userService.Insert(model);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
@@ -93,7 +93,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemResponse<LoginType> resp = new ItemResponse<LoginType>();
-                resp.Item = _userService.Login(model, remember);
+                resp.Item = userService.Login(model, remember);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
@@ -106,7 +106,7 @@ namespace MyStarterApp.Web.Controllers.Api
         [Route("logout"), HttpGet]
         public HttpResponseMessage Logout()
         {
-            _authService.LogOut();
+            authService.LogOut();
             SuccessResponse resp = new SuccessResponse();
             return Request.CreateResponse(HttpStatusCode.OK, resp);
         }
@@ -117,11 +117,11 @@ namespace MyStarterApp.Web.Controllers.Api
         {
             try
             {
-                IUserAuthData model = _authService.GetCurrentUser();
+                IUserAuthData model = authService.GetCurrentUser();
                 ItemResponse<User> resp = new ItemResponse<User>();
                 if (model != null)
                 {
-                    resp.Item = _userService.AdminSelectById(model.UserId);
+                    resp.Item = userService.AdminSelectById(model.UserId);
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
@@ -138,7 +138,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemResponse<int> resp = new ItemResponse<int>();
-                resp.Item = _userService.CheckUsername(username);
+                resp.Item = userService.CheckUsername(username);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
@@ -154,7 +154,7 @@ namespace MyStarterApp.Web.Controllers.Api
             try
             {
                 ItemResponse<int> resp = new ItemResponse<int>();
-                resp.Item = _userService.CheckEmail(email);
+                resp.Item = userService.CheckEmail(email);
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
             catch (Exception ex)
