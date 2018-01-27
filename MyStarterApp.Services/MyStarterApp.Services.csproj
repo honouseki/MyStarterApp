@@ -82,6 +82,8 @@
     <Compile Include="Authentication\Security\PlainText\SimpleClaim.cs" />
     <Compile Include="Cache\MemoryCacheDefault.cs" />
     <Compile Include="Extensions\IIdentityExtensions.cs" />
+    <Compile Include="Interfaces\IImageUploadService.cs" />
+    <Compile Include="ImageUploadService.cs" />
     <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\ICacheService.cs" />
     <Compile Include="Interfaces\ICryptographyService.cs" />

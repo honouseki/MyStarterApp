@@ -15,6 +15,7 @@ namespace MyStarterApp.Services.Authentication.Security.PlainText
                                                                 ClaimTypes.Role,
                                                                 ClaimTypes.Name,
                                                                 ClaimTypes.NameIdentifier,
+                                                                ClaimTypes.Actor,
                                                                 "http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider"
                                                             };
 
@@ -28,7 +29,7 @@ namespace MyStarterApp.Services.Authentication.Security.PlainText
                                         .FindAll(IsNotSpecialClaim)
                                             .Select(c => new SimpleClaim(c.Type, c.Value));
 
-            AuthData auth = new AuthData(data.Identity.GetUserId(), data.Identity.GetUserName(), roles, otherClaims);
+            AuthData auth = new AuthData(data.Identity.GetUserId(), data.Identity.GetUserName(), data.Identity.RoleClaimType, otherClaims);
 
             string qsFormat = auth.ToString();
 
@@ -48,6 +49,7 @@ namespace MyStarterApp.Services.Authentication.Security.PlainText
 
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, parts[0]));
                 claims.Add(new Claim(ClaimTypes.Name, parts[1]));
+                claims.Add(new Claim(ClaimTypes.Actor, parts[2]));
                 claims.Add(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity"));
 
 

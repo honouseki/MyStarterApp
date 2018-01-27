@@ -9,7 +9,7 @@ using System.Web;
 
 namespace MyStarterApp.Services.Services
 {
-    // This will serve as the basic 'template' in the case an emailing service is desired for your particular application
+    // This will serve as the basic 'template' in the case an emailing sending service is desired for your particular application
     public class EmailTestService
     {
         public bool SendEmail()

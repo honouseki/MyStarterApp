@@ -28,6 +28,13 @@
                 title: "Register/Login Page",
                 controller: "regLoginController as regLoginCtrl"
             })
+            .state({
+                name: "images",
+                url: "/images",
+                templateUrl: "/app/main/modules/images/images.html",
+                title: "Images Page",
+                controller: "imagesController as imagesCtrl"
+            })
             ;
     }
 })();
