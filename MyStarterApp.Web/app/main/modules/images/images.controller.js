@@ -16,6 +16,7 @@
         // 'upload' for links, 'upload2' for files
         vm.upload = _upload;
         vm.upload2 = _upload2;
+        vm.extractImage = _extractImage;
 
         vm.imageItem = {};
 
@@ -37,6 +38,11 @@
 
         function _upload2() {
             console.log(vm.imageItem);
+            vm.extractImage(vm.imageItem.rawFile);
+        }
+
+        function _extractImage(file) {
+            console.log(file);
         }
         
     }
