@@ -34,9 +34,9 @@ namespace MyStarterApp.Web.Controllers.Api
             }
             try
             {
+                // ModifiedBy is set to current user
                 IUserAuthData user = authService.GetCurrentUser();
                 model.ModifiedBy = String.Format("{0}_{1}", user.Username, user.UserId.ToString());
-
                 // Setting other required model properties here; May set as fit, i.e. based on 'category'
                 // The name attached to the beginning of the file name
                 model.ImageFileName = "generalImage";
@@ -44,6 +44,13 @@ namespace MyStarterApp.Web.Controllers.Api
                 model.ImageFileType = 1;
                 // File location under images; make sure it matches!
                 model.Location = "general";
+
+                // If the model contains non-null EncodedImageFile and FileExtension properties, convert to bytes
+                if (model.EncodedImageFile != null && model.FileExtension != null)
+                {
+                    byte[] newBytes = Convert.FromBase64String(model.EncodedImageFile);
+                    model.ByteArray = newBytes;
+                }
 
                 // Uploads image
                 ItemResponse<int> resp = new ItemResponse<int>();

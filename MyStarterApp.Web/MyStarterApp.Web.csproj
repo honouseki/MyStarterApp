@@ -258,6 +258,7 @@
   <ItemGroup>
     <Content Include="app\main\app.public.js" />
     <Content Include="app\main\app.routes.js" />
+    <Content Include="app\main\directives\files\fileModel.directive.js" />
     <Content Include="app\main\email_test\emailTest.html" />
     <Content Include="app\main\email_test\emailTest.js" />
     <Content Include="app\main\modules\images\images.controller.js" />
