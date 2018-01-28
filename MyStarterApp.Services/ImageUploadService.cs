@@ -30,7 +30,7 @@ namespace MyStarterApp.Services
                 systemFileName = string.Format("{0}_{1}{2}",
                     model.ImageFileName,
                     Guid.NewGuid().ToString(),
-                    model.Extension
+                    model.FileExtension
                 );
                 // Save to local drive
                 SaveToDrive(model.Location, systemFileName, model.ByteArray);

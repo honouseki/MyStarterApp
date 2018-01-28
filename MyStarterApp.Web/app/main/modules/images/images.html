@@ -18,7 +18,7 @@
                 <h4>Uploading with File Upload</h4>
                 <form>
                     <label for="upload">Upload</label>
-                    <input type="file" name="upload" ng-model="imagesCtrl.imageItem" />
+                    <input type="file" name="upload" file-model="imagesCtrl.imageItem.rawImage" />
                     <md-button class="badge-info" ng-click="imagesCtrl.upload2()">Upload</md-button>
                 </form>
             </div>
