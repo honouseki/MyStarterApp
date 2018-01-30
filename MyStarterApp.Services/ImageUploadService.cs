@@ -122,14 +122,40 @@ namespace MyStarterApp.Services
         }
 
         // Update specified image
+        // Update for an image would just be a combination of insert/delete
+        // Process:
+        //     Extract first half method of Insert to reuse (where system file name / bytes are formed)
+        //     Use that to convert image and upload to drive
+        //     Having passed previous system file name, use that to delete the old image from drive
+        //     Update systemFileName in model and send that to update with update stored proc
+        // When creating this service, do not forget to add the same method signature to the interface
 
         // Delete specified image
+        public void Delete(BasicImage model)
+        {
+            // Deletes image from drive
+            DeleteFromDrive(model.SystemFileName);
+            // Deletes image from database
+            this.DataProvider.ExecuteNonQuery(
+                "ImageFiles_Delete",
+                inputParamMapper: delegate (SqlParameterCollection paramCol)
+                {
+                    paramCol.AddWithValue("@id", model.Id);
+                }
+            );
+        }
 
+        // Private functions to be used by the above functions
         private void SaveToDrive(string location, string systemFileName, byte[] bytes)
         {
             string fileBase = String.Format("~/images/{0}/{1}", location, systemFileName);
             var filePath = HttpContext.Current.Server.MapPath(fileBase);
             File.WriteAllBytes(filePath, bytes);
+        }
+        private void DeleteFromDrive(string fileName)
+        {
+            string deletePath = HttpContext.Current.Server.MapPath("~/images/general/" + fileName);
+            File.Delete(deletePath);
         }
         private static BasicImage BasicImageMapper(IDataReader reader)
         {

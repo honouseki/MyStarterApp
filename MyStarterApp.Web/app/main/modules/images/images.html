@@ -23,6 +23,22 @@
                 </form>
             </div>
         </div>
+        <hr />
+        <div class="row" ng-repeat="image in imagesCtrl.images" style="border-bottom: solid black 2px">
+            <div class="col-sm-6">
+                <h4>Images information</h4>
+                <div>
+                    <p>Id: {{image.id}}</p>
+                    <p>File Name: {{image.imageFileName}}</p>
+                    <p>System File Name {{image.systemFileName}}</p>
+                    <md-button class="md-icon-button" ng-click="imagesCtrl.delete(image)">x</md-button>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <h4>Corresponding Image</h4>
+                <img src="{{image.iLink}}" height="250"/>
+            </div>
+        </div>
     </div>
     
 </div>

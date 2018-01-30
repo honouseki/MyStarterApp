@@ -16,11 +16,16 @@
         // 'upload' for links, 'upload2' for files
         vm.upload = _upload;
         vm.upload2 = _upload2;
+        vm.delete = _delete;
 
         vm.imageItem = {};
+        // For updating images array, splice when delete/updated, add when uploading
+        // This will update on the view, but is not done here to save my time
+        vm.images = [];
 
         function _onInit() {
             console.log("ImagesController");
+            selectAll();
         }
 
         // Sends the link directly to the service (where it'll handle the file upload with a URL string parameter)
@@ -35,12 +40,41 @@
                 console.log(err);
             }
         }
-
         // Takes in the file (files[0]) via 'file-model' directive, sending it through a number of functions to ultimately upload the image
         function _upload2() {
             console.log(vm.imageItem);
             // Convert the image to a base64 string for use
             convertToBase64(vm.imageItem.rawImage);
+        }
+
+        // Select functions
+        function selectAll() {
+            vm.imageUploadService.selectAll()
+                .then(success).catch(error);
+            function success(res) {
+                console.log(res);
+                vm.images = res.data.items;
+                // Adding image address to display
+                for (var i = 0; i < vm.images.length; i++) {
+                    vm.images[i].iLink = "/images/general/" + vm.images[i].systemFileName;
+                    console.log(vm.images[i].iLink);
+                }
+            }
+            function error(err) {
+                console.log(err);
+            }
+        }
+
+        // Deletes selected image
+        function _delete(item) {
+            vm.imageUploadService.delete(item)
+                .then(success).catch(error);
+            function success(res) {
+                console.log(res);
+            }
+            function error(err) {
+                console.log(err);
+            }
         }
 
         // Converts image to base64
@@ -64,7 +98,6 @@
                 console.log(err);
             }
         }
-
         function extractImage(img) {
             // Splitting the 64base string to pull out the right data
             var imageInfo = img.split(",");

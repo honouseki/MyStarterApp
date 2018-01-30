@@ -9,5 +9,6 @@ namespace MyStarterApp.Services
         int Insert(ImageFile model);
         List<BasicImage> SelectAll();
         BasicImage SelectById(int id);
+        void Delete(BasicImage model);
     }
 }
