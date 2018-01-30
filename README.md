@@ -22,6 +22,4 @@ Login/Register/GetCurrentUser
 
 Basic Email (Sending) Service (with Gmail's SMTP Server)
 
-File Upload (to local)
-
-Web-scraping capabilities
+Image File Upload (to local)
