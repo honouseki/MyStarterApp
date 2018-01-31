@@ -1,0 +1,13 @@
+﻿<div>
+    <h1>This is the links scraping page</h1>
+    <p>For now I've only set up web scraping for deviantart profiles.</p>
+    <br />
+    <p>Enter a deviantart profile link here, then check what information you get back!</p>
+    <input type="url" ng-model="linksCtrl.item.urlString" />
+    <md-button ng-click="linksCtrl.getDeviantArt()">Submit Url</md-button>
+    <hr />
+    <h4>Results of the link</h4>
+    <p><img src="{{linksCtrl.result.userIconUrl}}" />Username: {{linksCtrl.result.username}}</p>
+    <p>Tagline: {{linksCtrl.result.tagLine}}</p>
+
+</div>

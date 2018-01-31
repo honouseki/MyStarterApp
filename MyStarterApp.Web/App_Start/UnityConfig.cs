@@ -46,6 +46,7 @@ namespace MyStarterApp.Web
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IAuthenticationService, OwinAuthenticationService>();
             container.RegisterType<IImageUploadService, ImageUploadService>();
+            container.RegisterType<ILinksScraperService, LinksScraperService>();
 
             container.RegisterType<ICryptographyService, Base64StringCryptographyService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IDataProvider, SqlDataProvider>(

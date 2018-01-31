@@ -35,6 +35,13 @@
                 title: "Images Page",
                 controller: "imagesController as imagesCtrl"
             })
+            .state({
+                name: "links",
+                url: "/links",
+                templateUrl: "/app/main/modules/links/links.html",
+                title: "Links Scraping Page",
+                controller: "linksController as linksCtrl"
+            })
             ;
     }
 })();
