@@ -16,7 +16,7 @@ UI-Router
 
 MS-SQLSM (T-SQL)
 
-Features (to-be) Included:
+Features Included:
 
 Login/Register/GetCurrentUser
 
